@@ -1,0 +1,7 @@
+How to modify database with alembic:
+1. Add model → app/models/database.py
+2. Import model → alembic/env.py
+3. Generate migration → `uv run alembic revision --autogenerate -m "add comment table"`
+4. Review migration → Check the generated file
+5. Apply migration → `uv run alembic upgrade head`
+6. Update relationships → Add back-references if needed
