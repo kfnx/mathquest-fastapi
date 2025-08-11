@@ -4,3 +4,6 @@ lint:
 	
 dev:
 	uv run uvicorn app.main:app --reload
+
+seed:
+	uv run seed.py

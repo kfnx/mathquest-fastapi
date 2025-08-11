@@ -8,7 +8,6 @@ from sqlmodel import Session, create_engine
 from app.core.settings import settings
 from app.models.database import (
     Lessons,
-    Posts,
     ProblemChoices,
     Problems,
     ProblemType,
@@ -31,22 +30,22 @@ def seed_data():
         # Create sample users
         users = [
             Users(
-                full_name="John Doe",
-                email="john@example.com",
+                full_name="Crystal Wijaya",
+                email="crystal@example.com",
                 password=hash_password("password123"),
-                created_at=datetime.now()
+                created_at=datetime.now(),
             ),
             Users(
-                full_name="Jane Smith",
-                email="jane@example.com",
+                full_name="Rizky Sunaryo",
+                email="rizky@example.com",
                 password=hash_password("password123"),
-                created_at=datetime.now()
+                created_at=datetime.now(),
             ),
             Users(
-                full_name="Bob Johnson",
-                email="bob@example.com",
+                full_name="Susi Susanti",
+                email="susi@example.com",
                 password=hash_password("password123"),
-                created_at=datetime.now()
+                created_at=datetime.now(),
             ),
         ]
 
@@ -63,7 +62,7 @@ def seed_data():
                 best_streak=7,
                 last_activity_date=date.today(),
                 created_at=datetime.now(),
-                updated_at=datetime.now()
+                updated_at=datetime.now(),
             ),
             UserStats(
                 user_id=users[1].id,
@@ -72,7 +71,7 @@ def seed_data():
                 best_streak=12,
                 last_activity_date=date.today(),
                 created_at=datetime.now(),
-                updated_at=datetime.now()
+                updated_at=datetime.now(),
             ),
             UserStats(
                 user_id=users[2].id,
@@ -81,7 +80,7 @@ def seed_data():
                 best_streak=3,
                 last_activity_date=date.today(),
                 created_at=datetime.now(),
-                updated_at=datetime.now()
+                updated_at=datetime.now(),
             ),
         ]
 
@@ -89,48 +88,25 @@ def seed_data():
             db.add(stat)
         db.commit()
 
-        # Create sample posts
-        posts = [
-            Posts(
-                title="Getting Started with Python",
-                content="Python is a great language for beginners. Here are some tips to get started...",
-                user_id=users[0].id
-            ),
-            Posts(
-                title="Advanced Data Structures",
-                content="Let's explore some advanced data structures and their applications...",
-                user_id=users[1].id
-            ),
-            Posts(
-                title="Web Development Best Practices",
-                content="Here are some best practices for modern web development...",
-                user_id=users[2].id
-            ),
-        ]
-
-        for post in posts:
-            db.add(post)
-        db.commit()
-
         # Create sample lessons
         lessons = [
             Lessons(
-                title="Introduction to Python",
-                description="Learn the basics of Python programming language",
+                title="Basic Arithmetic",
+                description="Master addition and subtraction with fun problems",
                 order=1,
-                created_at=datetime.now()
+                created_at=datetime.now(),
             ),
             Lessons(
-                title="Variables and Data Types",
-                description="Understanding different data types in Python",
+                title="Multiplication Mastery",
+                description="Learn your times tables through interactive practice",
                 order=2,
-                created_at=datetime.now()
+                created_at=datetime.now(),
             ),
             Lessons(
-                title="Control Flow",
-                description="Learn about loops and conditional statements",
+                title="Division Basics",
+                description="Understand division with simple problems",
                 order=3,
-                created_at=datetime.now()
+                created_at=datetime.now(),
             ),
         ]
 
@@ -142,48 +118,111 @@ def seed_data():
         problems = [
             Problems(
                 lesson_id=lessons[0].id,
-                question="What is Python?",
+                question="What is 15 + 7?",
                 type=ProblemType.MULTIPLE_CHOICE,
-                answer="A programming language",
+                answer="22",
                 reward=10,
                 order=1,
-                created_at=datetime.now()
+                created_at=datetime.now(),
             ),
             Problems(
                 lesson_id=lessons[0].id,
-                question="Which of the following is NOT a Python data type?",
+                question="What is 25 - 8?",
+                type=ProblemType.INPUT,
+                answer="17",
+                reward=10,
+                order=2,
+                created_at=datetime.now(),
+            ),
+            Problems(
+                lesson_id=lessons[0].id,
+                question="What is 12 + 19?",
                 type=ProblemType.MULTIPLE_CHOICE,
-                answer="array",
+                answer="31",
+                reward=10,
+                order=3,
+                created_at=datetime.now(),
+            ),
+            Problems(
+                lesson_id=lessons[0].id,
+                question="What is 40 - 15?",
+                type=ProblemType.INPUT,
+                answer="25",
+                reward=10,
+                order=4,
+                created_at=datetime.now(),
+            ),
+            Problems(
+                lesson_id=lessons[1].id,
+                question="What is 6 × 7?",
+                type=ProblemType.MULTIPLE_CHOICE,
+                answer="42",
+                reward=15,
+                order=1,
+                created_at=datetime.now(),
+            ),
+            Problems(
+                lesson_id=lessons[1].id,
+                question="What is 8 × 9?",
+                type=ProblemType.INPUT,
+                answer="72",
                 reward=15,
                 order=2,
-                created_at=datetime.now()
+                created_at=datetime.now(),
             ),
             Problems(
                 lesson_id=lessons[1].id,
-                question="What is the correct way to declare a variable in Python?",
+                question="What is 5 × 6?",
                 type=ProblemType.MULTIPLE_CHOICE,
-                answer="x = 5",
-                reward=10,
-                order=1,
-                created_at=datetime.now()
+                answer="30",
+                reward=15,
+                order=3,
+                created_at=datetime.now(),
             ),
             Problems(
                 lesson_id=lessons[1].id,
-                question="What type is the value 3.14?",
-                type=ProblemType.MULTIPLE_CHOICE,
-                answer="float",
-                reward=10,
-                order=2,
-                created_at=datetime.now()
+                question="What is 4 × 8?",
+                type=ProblemType.INPUT,
+                answer="32",
+                reward=15,
+                order=4,
+                created_at=datetime.now(),
             ),
             Problems(
                 lesson_id=lessons[2].id,
-                question="What is the output of: print(2 + 2)?",
-                type=ProblemType.INPUT,
+                question="What is 24 ÷ 6?",
+                type=ProblemType.MULTIPLE_CHOICE,
                 answer="4",
-                reward=5,
+                reward=20,
                 order=1,
-                created_at=datetime.now()
+                created_at=datetime.now(),
+            ),
+            Problems(
+                lesson_id=lessons[2].id,
+                question="What is 35 ÷ 7?",
+                type=ProblemType.INPUT,
+                answer="5",
+                reward=20,
+                order=2,
+                created_at=datetime.now(),
+            ),
+            Problems(
+                lesson_id=lessons[2].id,
+                question="What is 18 ÷ 3?",
+                type=ProblemType.MULTIPLE_CHOICE,
+                answer="6",
+                reward=20,
+                order=3,
+                created_at=datetime.now(),
+            ),
+            Problems(
+                lesson_id=lessons[2].id,
+                question="What is 28 ÷ 4?",
+                type=ProblemType.INPUT,
+                answer="7",
+                reward=20,
+                order=4,
+                created_at=datetime.now(),
             ),
         ]
 
@@ -193,29 +232,132 @@ def seed_data():
 
         # Create problem choices for multiple choice questions
         problem_choices = [
-            # Problem 1 choices
-            ProblemChoices(problem_id=problems[0].id, answer="A programming language", order=1),
-            ProblemChoices(problem_id=problems[0].id, answer="A snake", order=2),
-            ProblemChoices(problem_id=problems[0].id, answer="A database", order=3),
-            ProblemChoices(problem_id=problems[0].id, answer="An operating system", order=4),
-
-            # Problem 2 choices
-            ProblemChoices(problem_id=problems[1].id, answer="list", order=1),
-            ProblemChoices(problem_id=problems[1].id, answer="dict", order=2),
-            ProblemChoices(problem_id=problems[1].id, answer="array", order=3),
-            ProblemChoices(problem_id=problems[1].id, answer="tuple", order=4),
-
-            # Problem 3 choices
-            ProblemChoices(problem_id=problems[2].id, answer="var x = 5", order=1),
-            ProblemChoices(problem_id=problems[2].id, answer="x = 5", order=2),
-            ProblemChoices(problem_id=problems[2].id, answer="let x = 5", order=3),
-            ProblemChoices(problem_id=problems[2].id, answer="const x = 5", order=4),
-
-            # Problem 4 choices
-            ProblemChoices(problem_id=problems[3].id, answer="int", order=1),
-            ProblemChoices(problem_id=problems[3].id, answer="float", order=2),
-            ProblemChoices(problem_id=problems[3].id, answer="double", order=3),
-            ProblemChoices(problem_id=problems[3].id, answer="decimal", order=4),
+            # Problem 1 choices (What is 15 + 7?)
+            ProblemChoices(
+                problem_id=problems[0].id,
+                answer="20",
+                order=1,
+            ),
+            ProblemChoices(
+                problem_id=problems[0].id,
+                answer="21",
+                order=2,
+            ),
+            ProblemChoices(
+                problem_id=problems[0].id,
+                answer="22",
+                order=3,
+            ),
+            ProblemChoices(
+                problem_id=problems[0].id,
+                answer="23",
+                order=4,
+            ),
+            # Problem 3 choices (What is 12 + 19?)
+            ProblemChoices(
+                problem_id=problems[2].id,
+                answer="29",
+                order=1,
+            ),
+            ProblemChoices(
+                problem_id=problems[2].id,
+                answer="30",
+                order=2,
+            ),
+            ProblemChoices(
+                problem_id=problems[2].id,
+                answer="31",
+                order=3,
+            ),
+            ProblemChoices(
+                problem_id=problems[2].id,
+                answer="32",
+                order=4,
+            ),
+            # Problem 5 choices (What is 6 × 7?)
+            ProblemChoices(
+                problem_id=problems[4].id,
+                answer="40",
+                order=1,
+            ),
+            ProblemChoices(
+                problem_id=problems[4].id,
+                answer="41",
+                order=2,
+            ),
+            ProblemChoices(
+                problem_id=problems[4].id,
+                answer="42",
+                order=3,
+            ),
+            ProblemChoices(
+                problem_id=problems[4].id,
+                answer="43",
+                order=4,
+            ),
+            # Problem 7 choices (What is 5 × 6?)
+            ProblemChoices(
+                problem_id=problems[6].id,
+                answer="28",
+                order=1,
+            ),
+            ProblemChoices(
+                problem_id=problems[6].id,
+                answer="29",
+                order=2,
+            ),
+            ProblemChoices(
+                problem_id=problems[6].id,
+                answer="30",
+                order=3,
+            ),
+            ProblemChoices(
+                problem_id=problems[6].id,
+                answer="31",
+                order=4,
+            ),
+            # Problem 9 choices (What is 24 ÷ 6?)
+            ProblemChoices(
+                problem_id=problems[8].id,
+                answer="3",
+                order=1,
+            ),
+            ProblemChoices(
+                problem_id=problems[8].id,
+                answer="4",
+                order=2,
+            ),
+            ProblemChoices(
+                problem_id=problems[8].id,
+                answer="5",
+                order=3,
+            ),
+            ProblemChoices(
+                problem_id=problems[8].id,
+                answer="6",
+                order=4,
+            ),
+            # Problem 11 choices (What is 18 ÷ 3?)
+            ProblemChoices(
+                problem_id=problems[10].id,
+                answer="5",
+                order=1,
+            ),
+            ProblemChoices(
+                problem_id=problems[10].id,
+                answer="6",
+                order=2,
+            ),
+            ProblemChoices(
+                problem_id=problems[10].id,
+                answer="7",
+                order=3,
+            ),
+            ProblemChoices(
+                problem_id=problems[10].id,
+                answer="8",
+                order=4,
+            ),
         ]
 
         for choice in problem_choices:
@@ -228,31 +370,31 @@ def seed_data():
                 user_id=users[0].id,
                 lesson_id=lessons[0].id,
                 completed_problems=2,
-                total_problems=2,
-                is_completed=True,
+                total_problems=4,
+                is_completed=False,
                 last_activity_at=datetime.now(),
                 created_at=datetime.now(),
-                updated_at=datetime.now()
+                updated_at=datetime.now(),
             ),
             UserProgress(
                 user_id=users[0].id,
                 lesson_id=lessons[1].id,
-                completed_problems=1,
-                total_problems=2,
+                completed_problems=0,
+                total_problems=4,
                 is_completed=False,
                 last_activity_at=datetime.now(),
                 created_at=datetime.now(),
-                updated_at=datetime.now()
+                updated_at=datetime.now(),
             ),
             UserProgress(
                 user_id=users[1].id,
                 lesson_id=lessons[0].id,
-                completed_problems=2,
-                total_problems=2,
+                completed_problems=4,
+                total_problems=4,
                 is_completed=True,
                 last_activity_at=datetime.now(),
                 created_at=datetime.now(),
-                updated_at=datetime.now()
+                updated_at=datetime.now(),
             ),
         ]
 
@@ -265,18 +407,18 @@ def seed_data():
             Submissions(
                 user_id=users[0].id,
                 lesson_id=lessons[0].id,
-                answers={"1": "A programming language", "2": "array"},
-                correct_count=2,
-                earned_xp=25,
-                created_at=datetime.now()
+                answers={"1": "22", "2": "17", "3": "31"},
+                correct_count=3,
+                earned_xp=30,
+                created_at=datetime.now(),
             ),
             Submissions(
                 user_id=users[1].id,
                 lesson_id=lessons[0].id,
-                answers={"1": "A programming language", "2": "array"},
-                correct_count=2,
-                earned_xp=25,
-                created_at=datetime.now()
+                answers={"1": "22", "2": "17", "3": "31", "4": "25"},
+                correct_count=4,
+                earned_xp=40,
+                created_at=datetime.now(),
             ),
         ]
 
@@ -286,7 +428,6 @@ def seed_data():
 
         print("✅ Data seeded successfully!")
         print(f"📊 Created {len(users)} users")
-        print(f"📝 Created {len(posts)} posts")
         print(f"📚 Created {len(lessons)} lessons")
         print(f"❓ Created {len(problems)} problems")
         print(f"📈 Created {len(user_stats)} user stats")

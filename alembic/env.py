@@ -6,7 +6,6 @@ from sqlmodel import SQLModel
 from alembic import context
 from app.core.settings import settings
 from app.models.database import (
-    Posts,
     Users,
     Lessons,
     Problems,

@@ -3,7 +3,7 @@ from sqlmodel import Session
 
 from app.models.engine import db_session
 from app.schema.users import UserCreate, UserRead
-from app.services.user_service import create_user, get_user, get_users
+from app.services.user_service import create_user, get_user, get_user_profile, get_users
 
 users_router = APIRouter(prefix="/users", tags=["users"])
 
@@ -12,9 +12,11 @@ users_router = APIRouter(prefix="/users", tags=["users"])
 def get_users_api(db: Session = Depends(db_session)):
     return get_users(db)
 
+
 @users_router.get("/profile", response_model=UserRead)
 def get_user_profile_api(db: Session = Depends(db_session)):
     return get_user_profile(db)
+
 
 @users_router.get("/{user_id}", response_model=UserRead)
 def get_user_api(user_id: str, db: Session = Depends(db_session)):

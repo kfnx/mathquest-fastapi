@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from scalar_fastapi import get_scalar_api_reference
 
 from app.core.settings import settings
-from app.routes.post_routes import posts_router
+from app.routes.lesson_routes import lessons_router
 from app.routes.user_routes import users_router
 
 app = FastAPI(
@@ -12,8 +12,8 @@ app = FastAPI(
     openapi_url=settings.OPENAPI_URL,
 )
 
+app.include_router(lessons_router, prefix="/api")
 app.include_router(users_router, prefix="/api")
-app.include_router(posts_router, prefix="/api")
 
 
 @app.get("/")

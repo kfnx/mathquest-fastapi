@@ -20,19 +20,10 @@ class Users(SQLModel, table=True):
     password: str | None = None
     created_at: datetime = Field(default_factory=datetime.now)
 
-    # posts: list["Posts"] = Relationship(back_populates="user")
     progress: list["UserProgress"] = Relationship(back_populates="user")
     submissions: list["Submissions"] = Relationship(back_populates="user")
     stats: "UserStats" = Relationship(back_populates="user")
 
-
-class Posts(SQLModel, table=True):
-    id: str = Field(default_factory=generate_id, primary_key=True)
-    title: str = Field(default="")
-    content: str = Field(default="")
-    user_id: str = Field(foreign_key="users.id")
-
-    user: Users = Relationship(back_populates="posts")
 
 
 class Lessons(SQLModel, table=True):
@@ -42,7 +33,7 @@ class Lessons(SQLModel, table=True):
     order: int = Field(default=0)
     created_at: datetime = Field(default_factory=datetime.now)
 
-    problems: list["Problems"] = Relationship(back_populates="lessons")
+    problems: list["Problems"] = Relationship(back_populates="lesson")
 
 
 class Problems(SQLModel, table=True):
@@ -55,7 +46,8 @@ class Problems(SQLModel, table=True):
     order: int = Field(default=0)
     created_at: datetime = Field(default_factory=datetime.now)
 
-    choices: list["ProblemChoices"] = Relationship(back_populates="problems")
+    lesson: Lessons = Relationship(back_populates="problems")
+    choices: list["ProblemChoices"] = Relationship(back_populates="problem")
 
 
 class ProblemChoices(SQLModel, table=True):
@@ -64,6 +56,8 @@ class ProblemChoices(SQLModel, table=True):
     problem_id: str = Field(foreign_key="problems.id")
     answer: str = Field(default="")
     order: int = Field(default=0)
+
+    problem: Problems = Relationship(back_populates="choices")
 
 
 class Submissions(SQLModel, table=True):
@@ -75,6 +69,7 @@ class Submissions(SQLModel, table=True):
     earned_xp: int = Field(default=0)
     created_at: datetime = Field(default_factory=datetime.now)
 
+    user: Users = Relationship(back_populates="submissions")
 
 
 class UserProgress(SQLModel, table=True):
@@ -89,6 +84,8 @@ class UserProgress(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
 
+    user: Users = Relationship(back_populates="progress")
+
 
 class UserStats(SQLModel, table=True):
     __tablename__ = "user_stats"
@@ -100,4 +97,6 @@ class UserStats(SQLModel, table=True):
     last_activity_date: date | None = Field(default=None)
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
+
+    user: Users = Relationship(back_populates="stats")
 
